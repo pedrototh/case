@@ -94,6 +94,11 @@ Selecine as linhas acima e clique em Run App. o RStudio irá proceder a instala�
 Com o ambiente assim, você poderá rodar localmente suas aplicações sem demais problemas. Para publicar suas aplicações no shinyapps.io, você deverá consultar a documentação presente em https://docs.rstudio.com/shinyapps.io/ .
 
 
+## Arquivos de Logs e Case
+
+Os arquivos contendo os logs da aplicação estão localizados na raiz do projeto (Case_Itau.pdf e	graylog.pdf).
+
+
 ## ToDo
 
 01 - Corrigir o arquivo get_followers.py, de modo que os erros de timeout gerados pela API do Twitter não explodam para o usuário, e que o script continue do ponto de onde parou;
