@@ -1,0 +1,54 @@
+version: '3.3'
+services:
+
+  mysql:
+    image: phtoth/database:latest
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql:/var/lib/mysql
+    networks:
+      - api
+
+  api:
+    image: phtoth/api:latest
+    deploy:
+      restart_policy:
+        condition: any
+        delay: 5s
+        max_attempts: 100
+        window: 30s
+    networks:
+      - api
+    depends_on:
+      - mysql
+    environment:
+      - WAIT_HOSTS=mysql:3306
+      - WAIT_BEFORE_HOSTS=60
+      - WAIT_HOSTS_TIMEOUT=300
+      - WAIT_SLEEP_INTERVAL=30
+      - WAIT_HOST_CONNECT_TIMEOUT=30
+#    volumes:
+      #- /mnt/log:/var/log/api
+    ports:
+      - "5000:5000"
+
+
+  web_server:
+    image: phtoth/web-server:latest
+    depends_on:
+      - mysql
+      - api
+    ports:
+      - "8080:8080"
+    networks:
+      - api
+
+
+networks:
+  api:
+    driver: bridge
+
+volumes:
+  mysql:
+    driver: local
